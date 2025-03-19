@@ -1,0 +1,1 @@
+ALTER TABLE shop_images ADD COLUMN my_order INT DEFAULT 0;

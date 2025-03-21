@@ -1,4 +1,5 @@
-from django.shortcuts import get_object_or_404
+from django.db.models import Q
+from django.shortcuts import redirect, get_object_or_404
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
 from shop.models import Category, Product, Customer
@@ -18,16 +19,27 @@ class IndexView(ListView):
             context['products'] = Product.objects.filter(category=category_id)
         return context
 
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        query = self.request.GET.get('q')
+        if query:
+            queryset = queryset.filter(Q(name__icontains=query) | Q(description__icontains=query))
+        return queryset
+
 
 class ProductDetailView(DetailView):
     model = Product
     template_name = 'shop/product-detail.html'
     context_object_name = 'product'
 
+    def get_object(self, queryset=None):
+        return Product.objects.get(id=self.kwargs['product_id'])
+
+
 
 class CustomerListView(ListView):
     model = Customer
-    template_name = 'shop/customer_add.html'
+    template_name = 'shop/customers.html'
     context_object_name = 'customers'
 
     def get_queryset(self):
@@ -39,7 +51,7 @@ class CustomerListView(ListView):
 
 class CustomerDetailView(DetailView):
     model = Customer
-    template_name = 'shop/customer_details.html'
+    template_name = 'shop/customer-details.html'
     context_object_name = 'customer'
 
 

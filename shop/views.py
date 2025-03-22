@@ -1,9 +1,25 @@
 from django.db.models import Q
-from django.shortcuts import redirect, get_object_or_404
+from django.shortcuts import redirect, get_object_or_404, render
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
 from shop.models import Category, Product, Customer
 from shop.forms import CustomerForm
+
+def index(request, category_id=None):
+    categories = Category.objects.all()
+    products = Product.objects.all()
+    if category_id:
+        products = Product.objects.filter(category=category_id)
+        context = {'products': products}
+        return render(request, 'shop/product-list.html', context)
+    context = {'categories': categories, 'products': products}
+    return render(request, 'shop/index.html', context)
+
+
+def product_detail(request, product_id):
+    product = Product.objects.get(id=product_id)
+    context = {'product': product}
+    return render(request, 'shop/product-detail.html', context)
 
 
 class IndexView(ListView):
@@ -31,6 +47,7 @@ class ProductDetailView(DetailView):
     model = Product
     template_name = 'shop/product-detail.html'
     context_object_name = 'product'
+    pk_url_kwarg = 'product_id'
 
     def get_object(self, queryset=None):
         return Product.objects.get(id=self.kwargs['product_id'])

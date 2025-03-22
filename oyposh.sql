@@ -11,4 +11,26 @@ CREATE TABLE shop_customer (
 );
 
 
+CREATE TABLE shop_attribute (
+    id SERIAL PRIMARY KEY,
+    attribute_key VARCHAR(200) UNIQUE NOT NULL
+);
+
+CREATE TABLE shop_attributevalue (
+    id SERIAL PRIMARY KEY,
+    attribute_value VARCHAR(200) UNIQUE NOT NULL
+);
+
+CREATE TABLE shop_productattribute (
+    id SERIAL PRIMARY KEY,
+    product_id INTEGER NOT NULL,
+    attribute_key_id INTEGER NOT NULL,
+    attribute_value_id INTEGER NOT NULL,
+    FOREIGN KEY (product_id) REFERENCES shop_product (id) ON DELETE CASCADE,
+    FOREIGN KEY (attribute_key_id) REFERENCES shop_attribute (id) ON DELETE CASCADE,
+    FOREIGN KEY (attribute_value_id) REFERENCES shop_attributevalue (id) ON DELETE CASCADE
+);
+
+
+
 

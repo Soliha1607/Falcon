@@ -1,10 +1,7 @@
 from decimal import Decimal
-
 from django.db import models
 
-
 # Create your models here.
-
 
 class Category(models.Model):
     title = models.CharField(max_length=200, unique=True)
@@ -68,3 +65,27 @@ class Customer(models.Model):
 
     def __str__(self):
         return f"{self.name} {self.email}"
+
+
+class Attribute(models.Model):
+    attribute_key = models.CharField(max_length=200, unique=True)
+
+    def __str__(self):
+        return self.attribute_key
+
+
+class AttributeValue(models.Model):
+    attribute_value = models.CharField(max_length=200, unique=True)
+
+    def __str__(self):
+        return self.attribute_value
+
+
+class ProductAttribute(models.Model):
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='product_attributes')
+    attribute_key = models.ForeignKey(Attribute, on_delete=models.CASCADE)
+    attribute_value = models.ForeignKey(AttributeValue, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f'{self.product.name} {self.attribute_key.attribute_key} {self.attribute_value.attribute_value}'
+

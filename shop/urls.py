@@ -2,6 +2,8 @@ from django.urls import path
 
 from shop import views
 
+app_name = 'shop'
+
 from shop.views import (
 IndexView, ProductDetail,
     CustomerListView, CustomerDetailView,

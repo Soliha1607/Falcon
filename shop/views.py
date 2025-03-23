@@ -78,13 +78,13 @@ class CustomerUpdateView(UpdateView):
     model = Customer
     form_class = CustomerForm
     template_name = 'shop/customer_update.html'
-    success_url = reverse_lazy('customers')
+    success_url = reverse_lazy('shop:customers')
 
 
 class CustomerDeleteView(DeleteView):
     model = Customer
     template_name = 'shop/customer_delete.html'
-    success_url = reverse_lazy('customers')
+    success_url = reverse_lazy('shop:customers')
 
     def get_object(self, queryset=None):
         return get_object_or_404(Customer, id=self.kwargs.get('customer_id'))

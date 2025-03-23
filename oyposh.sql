@@ -32,5 +32,5 @@ CREATE TABLE shop_productattribute (
 );
 
 
-
+ALTER TABLE shop_category ADD COLUMN slug VARCHAR(200) UNIQUE;
 

@@ -9,11 +9,11 @@
                         <div class="swiper-container theme-slider position-lg-absolute all-0"
                              data-swiper='{"autoHeight":true,"spaceBetween":{{ product.images.count }},"loop":true,"loopedSlides":{{ product.images.count }},"thumb":{"spaceBetween":{{ product.images.count }},"slidesPerView":{{ product.images.count }},"loop":true,"freeMode":true,"grabCursor":true,"loopedSlides":{{ product.images.count }},"centeredSlides":true,"slideToClickedSlide":true,"watchSlidesVisibility":true,"watchSlidesProgress":true,"parent":"#galleryTop"},"slideToClickedSlide":true}'>
                             <div class="swiper-wrapper h-100">
-{#                                {% for image in product.images.all %}#}
-{#                                    <div class="swiper-slide h-100"><img class="rounded-1 fit-cover h-100 w-200"#}
-{#                                                                         src="{{ image.image.url }}"#}
-{#                                                                         alt=""/></div>#}
-{#                                {% endfor %}#}
+                                {#                                {% for image in product.images.all %}#}
+                                {#                                    <div class="swiper-slide h-100"><img class="rounded-1 fit-cover h-100 w-200"#}
+                                {#                                                                         src="{{ image.image.url }}"#}
+                                {#                                                                         alt=""/></div>#}
+                                {#                                {% endfor %}#}
                             </div>
                             <div class="swiper-nav">
                                 <div class="swiper-button-next swiper-button-white"></div>
@@ -23,7 +23,7 @@
                     </div>
                 </div>
                 <div class="col-lg-6">
-                    <h5>{{ product.name }}</h5><a class="fs--1 mb-2 d-block" href="#!">{{ product.category.title }}</a>
+                    <h5>{{ product.name }}</h5><a class="fs--1 mb-2 d-block" href="">{{ product.category.title }}</a>
                     <div class="fs--2 mb-3 d-inline-block text-decoration-none"><span
                             class="fa fa-star text-warning"></span><span class="fa fa-star text-warning"></span><span
                             class="fa fa-star text-warning"></span><span class="fa fa-star text-warning"></span><span
@@ -37,8 +37,8 @@
                       <del class="me-1">${{ product.price }}</del><strong>-{{ product.discount }}%</strong></span></h4>
                     <p class="fs--1 mb-1"><span>Shipping Cost: </span><strong>$50</strong></p>
                     <p class="fs--1">Stock: <strong class="text-success">Available</strong></p>
-                    <p class="fs--1 mb-3">Tags: <a class="ms-2" href="#!">Computer,</a><a class="ms-1" href="#!">Mac
-                        Book,</a><a class="ms-1" href="#!">Mac Book Pro,</a><a class="ms-1" href="#!">Laptop </a></p>
+                    <p class="fs--1 mb-3">Tags: <a class="ms-2" href="">Computer,</a><a class="ms-1" href="">Mac
+                        Book,</a><a class="ms-1" href="">Mac Book Pro,</a><a class="ms-1" href="">Laptop </a></p>
                     <div class="row">
                         <div class="col-auto pe-0">
                             <div class="input-group input-group-sm" data-quantity="data-quantity">
@@ -53,10 +53,10 @@
                                 </button>
                             </div>
                         </div>
-                        <div class="col-auto px-2 px-md-3"><a class="btn btn-sm btn-primary" href="#!"><span
+                        <div class="col-auto px-2 px-md-3"><a class="btn btn-sm btn-primary" href=""><span
                                 class="fas fa-cart-plus me-sm-2"></span><span
                                 class="d-none d-sm-inline-block">Add To Cart</span></a></div>
-                        <div class="col-auto px-0"><a class="btn btn-sm btn-outline-danger border-300" href="#!"
+                        <div class="col-auto px-0"><a class="btn btn-sm btn-outline-danger border-300" href=""
                                                       data-bs-toggle="tooltip" data-bs-placement="top"
                                                       title="Add to Wish List"><span
                                 class="far fa-heart me-1"></span>282</a></div>
@@ -90,42 +90,14 @@
                                  aria-labelledby="specifications-tab">
                                 <table class="table fs--1 mt-3">
                                     <tbody>
-                                    <tr>
-                                        <td class="bg-100" style="width: 30%;">Processor</td>
-                                        <td>2.3GHz quad-core Intel Core i5,</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="bg-100" style="width: 30%;">Memory</td>
-                                        <td>8GB of 2133MHz LPDDR3 onboard memory</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="bg-100" style="width: 30%;">Brand Name</td>
-                                        <td>Apple</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="bg-100" style="width: 30%;">Model</td>
-                                        <td>Mac Book Pro</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="bg-100" style="width: 30%;">Display</td>
-                                        <td>13.3-inch (diagonal) LED-backlit display with IPS technology</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="bg-100" style="width: 30%;">Storage</td>
-                                        <td>512GB SSD</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="bg-100" style="width: 30%;">Graphics</td>
-                                        <td>Intel Iris Plus Graphics 655</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="bg-100" style="width: 30%;">Weight</td>
-                                        <td>7.15 pounds</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="bg-100" style="width: 30%;">Finish</td>
-                                        <td>Silver, Space Gray</td>
-                                    </tr>
+                                    {% for attribute in product.attributes %}
+                                        <tr>
+                                            <td class="bg-100"
+                                                style="width: 30%;">{{ attribute.attribute_key_id.attribute_key }}</td>
+                                            <td>{{ attribute.attribute_value_id.attribute_value }}</td>
+                                        </tr>
+                                    {% endfor %}
+
                                     </tbody>
                                 </table>
                             </div>
